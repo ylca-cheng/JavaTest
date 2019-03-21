@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <context:component-scan base-package="com.cheng.dynamicdatasource"/>
+
+    <context:annotation-config /> <!--开启注解 -->
+    <!--<task:annotation-driven/> &lt;!&ndash; 这句是重点 定时器开关 &ndash;&gt;-->
+    <!--<aop:aspectj-autoproxy/>-->
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"/>
+        <property name="username" value="niecheng"></property>
+        <property name="password" value="123456"></property>
+        <property name="validationQuery">
+            <value>SELECT 1 FROM DUAL</value>
+        </property>
+    </bean>
+
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"/>
+        <property name="username" value="WUXI_KJG"></property>
+        <property name="password" value="WUXI_KJG"></property>
+        <property name="validationQuery">
+            <value>SELECT 1 FROM DUAL</value>
+        </property>
+    </bean>
+
+    <!--数据源选择-->
+    <bean id="dataSourceSwitcher" class="com.cheng.dynamicdatasource.DataSourceSwitcher">
+        <property name="targetDataSources">
+            <map>
+                <entry key="ds1" value-ref="dataSource"/>
+                <entry key="ds2" value-ref="dataSource2"/>
+            </map>
+        </property>
+        <property name="dataSourceMap">
+            <map>
+                <entry key="ds1" value-ref="dataSource"/>
+                <entry key="ds2" value-ref="dataSource2"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSource"/>
+    </bean>
+
+    <!--spring事物管理-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceSwitcher" />
+    </bean>
+
+    <!--spring管理mybatis-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="dataSource" ref="dataSourceSwitcher" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.cheng.dynamicdatasource" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="add*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="create*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="modify*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="remove*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="submit*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="call*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.Exception"/>
+            <tx:method name="exec*" propagation="REQUIRES_NEW"
+                       read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="while*" propagation="REQUIRES_NEW"
+                       read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="getClinical*" propagation="REQUIRES_NEW"
+                       read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="reqNew*" propagation="REQUIRES_NEW"
+                       read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="log*" propagation="REQUIRES_NEW"
+                       read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="saveSysLog" propagation="REQUIRES_NEW"
+                       read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--<aop:config>-->
+        <!--<aop:pointcut-->
+                <!--expression="execution(public * com.winning.bi.service.impl..*.*(..))"-->
+                <!--id="ServiceOpertation"/>-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="ServiceOpertation"/>-->
+    <!--</aop:config>-->
+</beans>

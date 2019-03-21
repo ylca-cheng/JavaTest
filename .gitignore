@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+/target
+.idea/inspectionProfiles/
+JavaTest.iml
+target/generated-sources/
+target/generated-test-sources/
