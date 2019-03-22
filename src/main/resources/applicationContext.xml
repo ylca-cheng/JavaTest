@@ -38,7 +38,7 @@
     </bean>
 
     <!--数据源选择-->
-    <bean id="dataSourceSwitcher" class="com.cheng.dynamicdatasource.DataSourceSwitcher">
+    <bean id="dataSourceSwitcher" class="com.cheng.dynamicdatasource.component.DataSourceSwitcher">
         <property name="targetDataSources">
             <map>
                 <entry key="ds1" value-ref="dataSource"/>

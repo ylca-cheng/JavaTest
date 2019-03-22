@@ -13,9 +13,7 @@ package com.cheng.Test.collection;
 import com.cheng.domain.User;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * <p>功能:集合测试。</p>
@@ -63,6 +61,13 @@ public class CollectionTest {
         while (it.hasNext()) {
             System.out.println(it.next());
         }
+    }
+
+    @Test
+    public void mapTest(){
+        Map map = new HashMap();
+        map.put("1",null);
+        System.out.println(map.get("1"));
     }
 }
 /* Copyright (C) 2018, 上海金仕达卫宁软件科技有限公司 Project, All Rights Reserved. */

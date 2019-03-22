@@ -1,4 +1,4 @@
-package com.cheng.dynamicdatasource;
+package com.cheng.dynamicdatasource.enums;
 
 import lombok.Getter;
 import lombok.Setter;

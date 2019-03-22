@@ -1,4 +1,4 @@
-package com.cheng.dynamicdatasource;
+package com.cheng.dynamicdatasource.domain;
 
 import lombok.Getter;
 import lombok.Setter;

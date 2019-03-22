@@ -1,5 +1,6 @@
-package com.cheng.dynamicdatasource;
+package com.cheng.dynamicdatasource.component;
 
+import com.cheng.dynamicdatasource.domain.SysDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

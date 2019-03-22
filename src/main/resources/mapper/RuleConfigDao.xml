@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cheng.dynamicdatasource.RuleConfigDao">
+<mapper namespace="com.cheng.dynamicdatasource.mapper.RuleConfigDao">
     
     <select id="selectRules" parameterType="map" resultType="map">
         select id,name from rule_config
     </select>
 
-    <select id="selectDataSources" parameterType="map" resultType="com.cheng.dynamicdatasource.SysDataSource">
+    <select id="selectDataSources" parameterType="map" resultType="com.cheng.dynamicdatasource.domain.SysDataSource">
         select id,driver,url,username,password from t_datasource
     </select>
 </mapper>
