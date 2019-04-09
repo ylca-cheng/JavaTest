@@ -1,4 +1,4 @@
-# redisTest
+# JavaTest
 Java测试代码
 包括流
 序列化
@@ -13,3 +13,6 @@ Java测试代码
 
 <h2>运算测试</h2>
 --位移运算测试<br>
+
+<h2>Java8测试</h2>
+-- package:com.atguigu.java8day1,com.atguigu.java8day2
