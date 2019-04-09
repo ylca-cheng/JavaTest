@@ -10,3 +10,6 @@ Java测试代码
 <h2>线程池</h2>
 -- 线程池测试<br>
 -- package:ThreadPool
+
+<h2>运算测试</h2>
+--位移运算测试<br>
