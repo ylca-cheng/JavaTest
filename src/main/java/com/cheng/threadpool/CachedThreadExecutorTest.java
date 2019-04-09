@@ -1,19 +1,20 @@
-package com.cheng.ThreadPool;
+package com.cheng.threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * 单一线程 线程池
- * Created by niecheng on 2019/4/1.
+ * 可缓存线程池，当线程池大小超过了处理任务所需的线程，
+ * 那么就会回收部分空闲（一般是60秒无执行）的线程，当有任务来时，又智能的添加新线程来执行
+ * Created by niecheng on 2019/4/2.
  */
-public class SingleThreadExecutorTest {
+public class CachedThreadExecutorTest {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
 
         //创建一个可重用固定线程数的线程池
-        ExecutorService pool= Executors.newSingleThreadExecutor();
+        ExecutorService pool= Executors.newCachedThreadPool();
 
         //创建实现了Runnable接口对象，Thread对象当然也实现了Runnable接口;
 
@@ -43,8 +44,6 @@ public class SingleThreadExecutorTest {
         //关闭线程池
 
         pool.shutdown();
-
-
 
     }
 

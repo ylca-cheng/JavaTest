@@ -1,7 +1,4 @@
-package com.cheng.ThreadPool;
-
-import lombok.Getter;
-import lombok.Setter;
+package com.cheng.threadpool;
 
 /**
  * 线程类

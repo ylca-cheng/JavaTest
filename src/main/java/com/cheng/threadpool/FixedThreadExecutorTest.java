@@ -1,4 +1,4 @@
-package com.cheng.ThreadPool;
+package com.cheng.threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
