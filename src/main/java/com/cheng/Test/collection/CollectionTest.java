@@ -69,5 +69,13 @@ public class CollectionTest {
         map.put("1",null);
         System.out.println(map.get("1"));
     }
+
+    @Test
+    public void listTest(){
+        List<String> strings = new ArrayList<>();
+        strings.add("1");
+        strings.addAll(null);
+        System.out.println(strings.size());
+    }
 }
 /* Copyright (C) 2018, 上海金仕达卫宁软件科技有限公司 Project, All Rights Reserved. */

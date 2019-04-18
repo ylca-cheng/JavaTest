@@ -1,4 +1,4 @@
-package com.cheng.Test.thread;
+package com.cheng.threadpool.thread;
 
 /**
  * Created by niecheng on 2019/3/13.
