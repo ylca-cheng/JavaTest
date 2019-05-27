@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-/*
+/**
  * 一、Stream API 的操作步骤：
  * 
  * 1. 创建 Stream
@@ -18,14 +18,18 @@ import java.util.stream.Stream;
  * 3. 终止操作(终端操作)
  */
 public class TestStreamaAPI {
-	
-	//1. 创建 Stream
+
+	/**
+	 * 1. 创建 Stream
+	 */
 	@Test
 	public void test1(){
 		//1. Collection 提供了两个方法  stream() 与 parallelStream()
 		List<String> list = new ArrayList<>();
-		Stream<String> stream = list.stream(); //获取一个顺序流
-		Stream<String> parallelStream = list.parallelStream(); //获取一个并行流
+		//获取一个顺序流
+		Stream<String> stream = list.stream();
+		//获取一个并行流
+		Stream<String> parallelStream = list.parallelStream();
 		
 		//2. 通过 Arrays 中的 stream() 获取一个数组流
 		Integer[] nums = new Integer[10];
@@ -56,7 +60,7 @@ public class TestStreamaAPI {
 			new Employee(105, "田七", 38, 5555.55)
 	);
 	
-	/*
+	/**
 	  筛选与切片
 		filter——接收 Lambda ， 从流中排除某些元素。
 		limit——截断流，使其元素不超过给定数量。
@@ -73,7 +77,7 @@ public class TestStreamaAPI {
 				System.out.println("测试中间操作");
 				return e.getAge() <= 35;
 			});
-		
+
 		//只有当做终止操作时，所有的中间操作会一次性的全部执行，称为“惰性求值”
 		stream.forEach(System.out::println);
 	}

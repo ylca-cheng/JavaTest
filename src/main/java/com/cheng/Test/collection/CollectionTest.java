@@ -12,6 +12,7 @@ package com.cheng.Test.collection;
 
 import com.cheng.domain.User;
 import org.junit.Test;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -74,8 +75,20 @@ public class CollectionTest {
     public void listTest(){
         List<String> strings = new ArrayList<>();
         strings.add("1");
-        strings.addAll(null);
+//        strings.addAll(null);
         System.out.println(strings.size());
+
+        List<String> list1 = Collections.EMPTY_LIST;
+        List<String> list2 = new ArrayList<>();
+        list2.add("a");
+//        if(list1.isEmpty()){
+//            list1 = new ArrayList<>();
+//        }
+        System.out.println(list1.isEmpty());
+        System.out.println(list2.isEmpty());
+        System.out.println(CollectionUtils.isEmpty(list1));
+        list1.addAll(list2);
+        System.out.println(list1.contains("a"));
     }
 }
 /* Copyright (C) 2018, 上海金仕达卫宁软件科技有限公司 Project, All Rights Reserved. */
