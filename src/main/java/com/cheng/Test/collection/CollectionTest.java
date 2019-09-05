@@ -74,6 +74,7 @@ public class CollectionTest {
     @Test
     public void listTest(){
         List<String> strings = new ArrayList<>();
+        System.out.println(strings.get(0));
         strings.add("1");
 //        strings.addAll(null);
         System.out.println(strings.size());
