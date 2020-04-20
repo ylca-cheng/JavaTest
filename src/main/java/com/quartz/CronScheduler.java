@@ -19,12 +19,12 @@ public class CronScheduler {
         // 2.3.0
         /*CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("cronTrigger")
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 35 14 * * ? ")).build();*/
-        CronTrigger cronTrigger = new CronTrigger("cronTrigger",Scheduler.DEFAULT_GROUP,"50 21 16 * * ? ");
+        CronTrigger cronTrigger = new CronTrigger("cronTrigger",Scheduler.DEFAULT_GROUP,"20 27 17 * * ? ");
         //Scheduler实例
 //        StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
 //        Scheduler scheduler = stdSchedulerFactory.getScheduler();
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-//        scheduler.start();
+        scheduler.start();
         scheduler.scheduleJob(jobDetail,cronTrigger);
 
 
