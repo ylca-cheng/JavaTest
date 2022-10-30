@@ -5,3 +5,6 @@ JavaTest.iml
 target/generated-sources/
 target/generated-test-sources/
 /.idea/
+/cheng-pom/cheng-pom.iml
+/threadDemo/threadDemo.iml
+/threadDemo/target/
