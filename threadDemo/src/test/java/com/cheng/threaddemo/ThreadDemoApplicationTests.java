@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @SpringBootTest(classes = ThreadDemoApplication.class)
 @RunWith(SpringRunner.class)
@@ -18,6 +19,22 @@ public class ThreadDemoApplicationTests {
 
     @Autowired
     private TraceableExecutorService traceableExecutorService;
+
+    @Autowired
+    private ThreadPoolExecutor cachedThreadExecutor;
+
+    @Test
+    public void testCachedThreadExecutor() throws ExecutionException, InterruptedException {
+        List<CompletableFuture<String>> result = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            int finalI = i;
+            CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> task(finalI), cachedThreadExecutor);
+            result.add(future);
+        }
+        for (CompletableFuture<String> stringCompletableFuture : result) {
+            System.out.println(stringCompletableFuture.get());
+        }
+    }
 
     @Test
     public void contextLoads() throws ExecutionException, InterruptedException {
@@ -36,7 +53,7 @@ public class ThreadDemoApplicationTests {
     public String task(int i){
         try {
             // 睡10s
-            Thread.sleep(10000);
+            Thread.sleep(1);
             // 输出线程名称
             // System.out.println(Thread.currentThread().getName());
         } catch (InterruptedException e) {

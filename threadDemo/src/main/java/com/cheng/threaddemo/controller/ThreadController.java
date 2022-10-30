@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Slf4j
 @RestController
@@ -19,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 public class ThreadController {
     private final TraceableExecutorService traceableExecutorService;
+    private final ThreadPoolExecutor cacheThreadPoolExecutor;
 
     @GetMapping("/task/{num}")
     public List<String> getTaskResult(@PathVariable int num){
@@ -42,10 +45,33 @@ public class ThreadController {
         return result;
     }
 
+    @GetMapping("/task2/{num}")
+    public List<String> getTaskTwoResult(@PathVariable int num){
+        List<CompletableFuture<String>> futures = new ArrayList<>();
+
+        Random random = new Random();
+        for (int i = 1; i < random.nextInt(num); i++) {
+            int finalI = i;
+            CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> task(finalI), cacheThreadPoolExecutor);
+            futures.add(future);
+        }
+        List<String> result = new ArrayList<>();
+        for (CompletableFuture<String> future : futures) {
+            try {
+                result.add(future.get());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
+    }
+
     public String task(int i){
         try {
             // 睡10s
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             // 输出线程名称
             // System.out.println(Thread.currentThread().getName());
             log.info("任务完成！");
