@@ -21,7 +21,7 @@ public class DataSourceSwitcher extends AbstractRoutingDataSource {
     private static final Logger LOGGER = LoggerFactory.getLogger("INTERACTIVE_LOGGER");
 
     /** 数据源集合*/
-    private static Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private static Map<String, DataSource> dataSourceMap = new HashMap<String, DataSource>();
 
     private static final ThreadLocal<String> dataSourceKey = new ThreadLocal<String>();
 

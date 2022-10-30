@@ -20,7 +20,13 @@ public class MathTest {
 
     @Test
     public void integerTest(){
-        Integer i = Integer.getInteger("a");
-        System.out.println(i.intValue());
+//        Integer i = Integer.getInteger("a");
+//        System.out.println(i.intValue());
+
+//        System.out.println(123/2);
+
+        int[] nums = {1,2,3,4,5,6};
+        int a = 2;
+        System.out.println(nums[a--]);
     }
 }

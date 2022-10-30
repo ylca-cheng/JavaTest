@@ -14,6 +14,7 @@ import com.cheng.domain.User;
 import org.junit.Test;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -73,14 +74,14 @@ public class CollectionTest {
 
     @Test
     public void listTest(){
-        List<String> strings = new ArrayList<>();
-        System.out.println(strings.get(0));
+        List<String> strings = new ArrayList<String>();
+//        System.out.println(strings.get(0));
         strings.add("1");
 //        strings.addAll(null);
         System.out.println(strings.size());
 
         List<String> list1 = Collections.EMPTY_LIST;
-        List<String> list2 = new ArrayList<>();
+        List<String> list2 = new ArrayList<String>();
         list2.add("a");
 //        if(list1.isEmpty()){
 //            list1 = new ArrayList<>();
@@ -88,8 +89,17 @@ public class CollectionTest {
         System.out.println(list1.isEmpty());
         System.out.println(list2.isEmpty());
         System.out.println(CollectionUtils.isEmpty(list1));
-        list1.addAll(list2);
-        System.out.println(list1.contains("a"));
+        // 报错
+//        list1.addAll(list2);
+        System.out.println(list2.contains("a"));
+    }
+
+    @Test
+    public void test3(){
+        List<BigDecimal> result = new ArrayList<BigDecimal>(3);
+        System.out.println(org.apache.commons.collections.CollectionUtils.isNotEmpty(result));
+        result.add(null);
+        System.out.println(result.get(0));
     }
 }
 /* Copyright (C) 2018, 上海金仕达卫宁软件科技有限公司 Project, All Rights Reserved. */

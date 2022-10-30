@@ -1,5 +1,10 @@
 package com.cheng.threadpool;
 
+import org.junit.Test;
+
+import java.util.Queue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,5 +52,54 @@ public class SingleThreadExecutorTest {
 
 
     }
+
+
+
+    @Test
+    public void test(){
+
+        for (int i = 0 ; i < 100; i++){
+            calculation(i);
+        }
+
+    }
+
+    private void calculation(Integer num){
+        pool.execute(new Thread(){
+            @Override
+            public void run(){
+                execTask(num);
+                /*try {
+                    // 睡眠一分钟
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+            }
+        });
+    }
+    private ExecutorService pool= Executors.newSingleThreadExecutor();
+    private Queue<Integer> taskQueue = new ConcurrentLinkedQueue<Integer>();
+    private Thread taskThread = new Thread() {
+        @Override
+        public void run(){
+            Integer task;
+            while((task=taskQueue.poll())!=null){
+                execTask(task);
+                try {
+                    // 睡眠一分钟
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    private void execTask(Integer num){
+        System.out.println(num);
+    }
+
+
 
 }

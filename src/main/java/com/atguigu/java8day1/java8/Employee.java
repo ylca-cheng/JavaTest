@@ -103,4 +103,13 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", salary=" + salary + "]";
 	}
 
+	public int compare(Employee employee){
+		if (this.age > employee.age) {
+			return 1;
+		}else if(this.age < employee.age){
+			return -1;
+		}else {
+			return this.name.compareTo(employee.name);
+		}
+	}
 }
